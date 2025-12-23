@@ -1,0 +1,127 @@
+/* ===================================================== */
+/* ================= RESET / GLOBAL =================== */
+/* ===================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+}
+
+/* ===================================================== */
+/* ================= CONTAINER ========================= */
+/* ===================================================== */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+/* ===================================================== */
+/* ================= WRAPPER =========================== */
+/* ===================================================== */
+
+.formWrapper {
+  width: 100%;
+  max-width: 820px; /* mobile */
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.4s ease-in;
+}
+
+/* ===================================================== */
+/* ================= COLUNA ESQUERDA =================== */
+/* ===================================================== */
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===================================================== */
+/* ================= FORM ============================== */
+/* ===================================================== */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 24px 30px 32px;
+}
+
+.form input:focus,
+.form select:focus {
+  border-color: #1a73e8;
+  outline: none;
+}
+
+.actions {
+  margin-top: auto;
+}
+
+
+/* ===================================================== */
+/* ================= ANIMAÇÃO ========================== */
+/* ===================================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===================================================== */
+/* ================= DESKTOP =========================== */
+/* ===================================================== */
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 40px 20px;
+  }
+
+  .formWrapper {
+    max-width: 1200px;
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  /* ESQUERDA → HEADER + INFO */
+  .leftColumn {
+    width: 60%;
+    border-right: 1px solid #eee;
+    position: sticky;
+    top: 40px;
+    align-self: flex-start;
+  }
+
+  /* DIREITA → FORM */
+  .form {
+    width: 40%;
+    padding: 40px;
+
+    /* CENTRALIZAÇÃO VERTICAL */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}

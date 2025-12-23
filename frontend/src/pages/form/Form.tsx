@@ -115,6 +115,15 @@ function Form() {
         return;
       }
 
+      const cidadeValida = municipios.some((m) => m.label === form.city);
+
+      if (!cidadeValida) {
+        setSnackbarMessage("Selecione uma cidade válida da lista.");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+        return;
+      }
+
       // 1. Criar cliente
       const customerResponse = await asaas.createClient(
         form.name,
@@ -236,7 +245,9 @@ function Form() {
 
         {/* COLUNA DIREITA */}
         <form onSubmit={handleSubmit} className={styles.form}>
-          <h2 style={{ textAlign: "center", marginBottom: "30px" }}>Formulário de Inscrição</h2>
+          <h2 style={{ textAlign: "center", marginBottom: "30px" }}>
+            Formulário de Inscrição
+          </h2>
           <InputField
             label="Nome"
             name="name"

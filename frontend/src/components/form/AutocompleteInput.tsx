@@ -37,72 +37,83 @@ export const AutocompleteInput = ({
   options,
   onChange,
 }: AutocompleteInputProps) => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [filteredOptions, setFilteredOptions] = useState<Option[]>([]);
   const [showOptions, setShowOptions] = useState(false);
-  const [searchTerm, setSearchTerm] = useState(value);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
-  // Atualiza texto exibido
+  /** 🔁 sincroniza texto com valor válido */
   useEffect(() => {
-    const selectedOption = options.find((o) => o.label === value);
-    if (selectedOption) {
-      setSearchTerm(selectedOption.label);
-    } else {
-      setSearchTerm(value || "");
-    }
+    const selected = options.find((o) => o.label === value);
+    setSearchTerm(selected ? selected.label : "");
   }, [value, options]);
 
-  // Filtro + ordenação inteligente
+  /** 🔍 filtro inteligente */
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (searchTerm) {
-        const normalizedSearch = normalizeText(searchTerm);
-
-        const filtered = options
-          .filter((option) =>
-            normalizeText(option.label).includes(normalizedSearch)
-          )
-          .sort((a, b) => {
-            const aLabel = normalizeText(a.label);
-            const bLabel = normalizeText(b.label);
-
-            // 1️⃣ correspondência exata
-            if (aLabel === normalizedSearch && bLabel !== normalizedSearch)
-              return -1;
-            if (bLabel === normalizedSearch && aLabel !== normalizedSearch)
-              return 1;
-
-            // 2️⃣ começa com
-            if (
-              aLabel.startsWith(normalizedSearch) &&
-              !bLabel.startsWith(normalizedSearch)
-            )
-              return -1;
-            if (
-              bLabel.startsWith(normalizedSearch) &&
-              !aLabel.startsWith(normalizedSearch)
-            )
-              return 1;
-
-            // 3️⃣ ordem alfabética
-            return aLabel.localeCompare(bLabel);
-          })
-          .slice(0, 100);
-
-        setFilteredOptions(filtered);
-      } else {
+      if (!searchTerm) {
         setFilteredOptions(options.slice(0, 20));
+        setHighlightedIndex(-1);
+        return;
       }
 
+      const normalizedSearch = normalizeText(searchTerm);
+
+      const filtered = options
+        .filter((o) => normalizeText(o.label).includes(normalizedSearch))
+        .sort((a, b) => {
+          const aLabel = normalizeText(a.label);
+          const bLabel = normalizeText(b.label);
+
+          if (aLabel === normalizedSearch && bLabel !== normalizedSearch)
+            return -1;
+          if (bLabel === normalizedSearch && aLabel !== normalizedSearch)
+            return 1;
+
+          if (
+            aLabel.startsWith(normalizedSearch) &&
+            !bLabel.startsWith(normalizedSearch)
+          )
+            return -1;
+          if (
+            bLabel.startsWith(normalizedSearch) &&
+            !aLabel.startsWith(normalizedSearch)
+          )
+            return 1;
+
+          return aLabel.localeCompare(bLabel);
+        })
+        .slice(0, 100);
+
+      setFilteredOptions(filtered);
       setHighlightedIndex(-1);
     }, 150);
 
     return () => clearTimeout(timer);
   }, [searchTerm, options]);
 
+  /** ✅ seleção válida */
   const handleSelect = (option: Option) => {
     onChange(name, option.label);
     setSearchTerm(option.label);
+    setShowOptions(false);
+    setHighlightedIndex(-1);
+  };
+
+  /** ❌ bloqueia valores fora da API */
+  const handleBlur = () => {
+    const match = options.find(
+      (o) => normalizeText(o.label) === normalizeText(searchTerm)
+    );
+
+    if (match) {
+      onChange(name, match.label);
+      setSearchTerm(match.label);
+    } else {
+      onChange(name, "");
+      setSearchTerm("");
+    }
+
     setShowOptions(false);
     setHighlightedIndex(-1);
   };
@@ -115,26 +126,28 @@ export const AutocompleteInput = ({
         id={name}
         name={name}
         value={searchTerm}
+        autoComplete="off"
+        required
         onChange={(e) => {
           setSearchTerm(e.target.value);
           setShowOptions(true);
         }}
         onFocus={() => setShowOptions(true)}
-        onBlur={() => setTimeout(() => setShowOptions(false), 150)}
+        onBlur={() => setTimeout(handleBlur, 150)}
         onKeyDown={(e) => {
           if (!showOptions || filteredOptions.length === 0) return;
 
           if (e.key === "ArrowDown") {
             e.preventDefault();
-            setHighlightedIndex((prev) =>
-              prev < filteredOptions.length - 1 ? prev + 1 : 0
+            setHighlightedIndex((i) =>
+              i < filteredOptions.length - 1 ? i + 1 : 0
             );
           }
 
           if (e.key === "ArrowUp") {
             e.preventDefault();
-            setHighlightedIndex((prev) =>
-              prev > 0 ? prev - 1 : filteredOptions.length - 1
+            setHighlightedIndex((i) =>
+              i > 0 ? i - 1 : filteredOptions.length - 1
             );
           }
 
@@ -147,8 +160,6 @@ export const AutocompleteInput = ({
             setShowOptions(false);
           }
         }}
-        autoComplete="off"
-        required
       />
 
       {showOptions && filteredOptions.length > 0 && (
@@ -172,14 +183,11 @@ export const AutocompleteInput = ({
                 onMouseDown={() => handleSelect(option)}
                 sx={{
                   cursor: "pointer",
-                    padding: 1.5,
+                  padding: 1.5,
                   bgcolor:
                     index === highlightedIndex
                       ? "action.selected"
                       : "transparent",
-                  "&:hover": {
-                    bgcolor: "action.hover",
-                  },
                 }}
               >
                 {option.label}

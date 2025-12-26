@@ -6,7 +6,7 @@ import {
   ListItem,
   Paper,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Option = {
   id: number;
@@ -41,6 +41,8 @@ export const AutocompleteInput = ({
   const [filteredOptions, setFilteredOptions] = useState<Option[]>([]);
   const [showOptions, setShowOptions] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+
+  const listRef = useRef<HTMLDivElement>(null);
 
   /** 🔁 sincroniza texto com valor válido */
   useEffect(() => {
@@ -118,6 +120,25 @@ export const AutocompleteInput = ({
     setHighlightedIndex(-1);
   };
 
+  /** 📌 Mantém item destacado visível ao navegar com teclado */
+  useEffect(() => {
+    if (highlightedIndex >= 0 && listRef.current) {
+      const item = listRef.current.children[highlightedIndex] as HTMLElement;
+      if (item) {
+        const itemTop = item.offsetTop;
+        const itemBottom = itemTop + item.offsetHeight;
+        const scrollTop = listRef.current.scrollTop;
+        const scrollBottom = scrollTop + listRef.current.clientHeight;
+
+        if (itemTop < scrollTop) {
+          listRef.current.scrollTop = itemTop;
+        } else if (itemBottom > scrollBottom) {
+          listRef.current.scrollTop = itemBottom - listRef.current.clientHeight;
+        }
+      }
+    }
+  }, [highlightedIndex]);
+
   return (
     <FormControl fullWidth variant="standard" style={{ position: "relative" }}>
       <InputLabel>{label}</InputLabel>
@@ -173,9 +194,10 @@ export const AutocompleteInput = ({
             maxHeight: 200,
             overflowY: "auto",
             WebkitOverflowScrolling: "touch",
+            overscrollBehavior: "auto", // permite scroll chaining natural
+            touchAction: "pan-y", // permite scroll vertical no mobile
           }}
-          onTouchStart={(e) => e.stopPropagation()} 
-          onTouchMove={(e) => e.stopPropagation()}
+          ref={listRef}
         >
           <List dense>
             {filteredOptions.map((option, index) => (

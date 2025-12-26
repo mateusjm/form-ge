@@ -172,9 +172,10 @@ export const AutocompleteInput = ({
             right: 0,
             maxHeight: 200,
             overflowY: "auto",
-            WebkitOverflowScrolling: "touch", // ✅ smooth scroll no iOS
-            touchAction: "pan-y", // permite o scroll vertical dentro do Paper
+            WebkitOverflowScrolling: "touch", // ✅ scroll suave no iOS
           }}
+          onTouchStart={(e) => e.stopPropagation()} // ⚡ evita que a página role
+          onTouchMove={(e) => e.stopPropagation()} // ⚡ permite scroll só dentro da lista
         >
           <List dense>
             {filteredOptions.map((option, index) => (

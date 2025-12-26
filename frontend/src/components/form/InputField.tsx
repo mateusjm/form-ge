@@ -5,9 +5,10 @@ type InputFieldProps = {
   label: string;
   name: string;
   value: string | number;
-  type?: "text" | "number";
+  type?: "text" | "number" | "tel";
   onChange: (name: string, value: string) => void;
   maxLength?: number; // opcional para limitar caracteres
+  inputMode?: string;
 };
 
 export const InputField = ({

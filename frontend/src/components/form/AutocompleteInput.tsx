@@ -172,10 +172,10 @@ export const AutocompleteInput = ({
             right: 0,
             maxHeight: 200,
             overflowY: "auto",
-            WebkitOverflowScrolling: "touch", // ✅ scroll suave no iOS
+            WebkitOverflowScrolling: "touch",
           }}
-          onTouchStart={(e) => e.stopPropagation()} // ⚡ evita que a página role
-          onTouchMove={(e) => e.stopPropagation()} // ⚡ permite scroll só dentro da lista
+          onTouchStart={(e) => e.stopPropagation()} 
+          onTouchMove={(e) => e.stopPropagation()}
         >
           <List dense>
             {filteredOptions.map((option, index) => (

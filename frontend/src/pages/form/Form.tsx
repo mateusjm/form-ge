@@ -322,6 +322,9 @@ function Form() {
                 ? handleChange(name, formatPhone(value))
                 : handleChange(name, value)
             }
+            type="tel" 
+            inputMode="numeric" 
+            maxLength={15}
           />
 
           <SelectField

@@ -278,6 +278,8 @@ function Form() {
                 ? handleChange(name, formatCPF(value))
                 : handleChange(name, value)
             }
+            type="tel"
+            inputMode="numeric"
           />
 
           <SelectField
@@ -322,8 +324,8 @@ function Form() {
                 ? handleChange(name, formatPhone(value))
                 : handleChange(name, value)
             }
-            type="tel" 
-            inputMode="numeric" 
+            type="tel"
+            inputMode="numeric"
             maxLength={15}
           />
 

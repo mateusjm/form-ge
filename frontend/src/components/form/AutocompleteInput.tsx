@@ -172,6 +172,8 @@ export const AutocompleteInput = ({
             right: 0,
             maxHeight: 200,
             overflowY: "auto",
+            WebkitOverflowScrolling: "touch", // ✅ smooth scroll no iOS
+            touchAction: "pan-y", // permite o scroll vertical dentro do Paper
           }}
         >
           <List dense>

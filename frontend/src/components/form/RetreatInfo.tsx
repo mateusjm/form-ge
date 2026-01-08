@@ -20,15 +20,15 @@ export const RetreatInfo = () => {
         PIX, boleto ou cartão
         <br />
         <br />
-        Até 31/01 → até <strong>5x</strong> no cartão
+        Até 31/01 → até <strong style={{ color: "#22669A", fontWeight: "bold" }}>5x</strong> no cartão
         <br />
-        01/02 até 28/02 → até <strong>4x</strong> no cartão
+        01/02 até 28/02 → até <strong style={{ color: "#22669A", fontWeight: "bold" }}>4x</strong> no cartão
         <br />
-        01/03 até 31/03 → até <strong>3x</strong> no cartão
+        01/03 até 31/03 → até <strong style={{ color: "#22669A", fontWeight: "bold" }}>3x</strong> no cartão
         <br />
-        01/04 até 30/04 → até <strong>2x</strong> no cartão
+        01/04 até 30/04 → até <strong style={{ color: "#22669A", fontWeight: "bold" }}>2x</strong> no cartão
         <br />
-        01/05 até 31/05 → até <strong>1x</strong> no cartão
+        01/05 até 31/05 → até <strong style={{ color: "#22669A", fontWeight: "bold" }}>1x</strong> no cartão
         <br />
         <br />
         <strong style={{ color: "#22669A", fontWeight: "bold" }}>

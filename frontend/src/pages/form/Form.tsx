@@ -231,12 +231,23 @@ function Form() {
         {/* COLUNA ESQUERDA */}
         <div className={styles.leftColumn}>
           <FormHeader
-            imageSrc="/retiro.jpeg"
+            imageSrc="/ge-image.jpeg"
             title="Retiro Geração Eleita em Ponte Nova - 2026"
             subtitle={
               <>
-                <div>Data: 04/06/2026 a 07/06/2026</div>
-                <div>Valor Atual: R${valorAtual},00</div>
+                <div>
+                  <span style={{ color: "#22669A", fontWeight: "bold" }}>
+                    Data:{" "}
+                  </span>
+                  04/06/2026 a 07/06/2026
+                </div>
+                <div>
+                  <span style={{ color: "#22669A", fontWeight: "bold" }}>
+                    Valor Atual:
+                  </span>{" "}
+                  R$
+                  {valorAtual},00
+                </div>
               </>
             }
           />
@@ -245,7 +256,14 @@ function Form() {
 
         {/* COLUNA DIREITA */}
         <form onSubmit={handleSubmit} className={styles.form}>
-          <h2 style={{ textAlign: "center", marginBottom: "30px" }}>
+          <h2
+            style={{
+              textAlign: "center",
+              marginBottom: "30px",
+              color: "#22669A",
+              fontWeight: "bold",
+            }}
+          >
             Formulário de Inscrição
           </h2>
           <InputField

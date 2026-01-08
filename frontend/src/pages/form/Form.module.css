@@ -22,10 +22,7 @@ body {
 .container {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  background-color: #f8f9fa;
   min-height: 100vh;
-  padding: 40px 20px;
 }
 
 /* ===================================================== */
@@ -34,9 +31,8 @@ body {
 
 .formWrapper {
   width: 100%;
-  max-width: 820px; /* mobile */
   background-color: #ffffff;
-  border-radius: 12px;
+  border-radius: none;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   display: flex;
@@ -60,8 +56,8 @@ body {
 .form {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  padding: 24px 30px 32px;
+  gap: 10px;
+  padding: 40px;
 }
 
 .form input:focus,
@@ -73,7 +69,6 @@ body {
 .actions {
   margin-top: auto;
 }
-
 
 /* ===================================================== */
 /* ================= ANIMAÇÃO ========================== */
@@ -103,6 +98,7 @@ body {
     max-width: 1200px;
     flex-direction: row;
     align-items: stretch;
+    border-radius: 12px;
   }
 
   /* ESQUERDA → HEADER + INFO */
@@ -112,12 +108,13 @@ body {
     position: sticky;
     top: 40px;
     align-self: flex-start;
+    border-radius: none;
   }
 
   /* DIREITA → FORM */
   .form {
     width: 40%;
-    padding: 40px;
+    padding: 26px;
 
     /* CENTRALIZAÇÃO VERTICAL */
     display: flex;

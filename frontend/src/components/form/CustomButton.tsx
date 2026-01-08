@@ -26,7 +26,7 @@ export const CustomButton = ({
         paddingY: 1,
         fontSize: "1rem",
         textTransform: "none",
-        backgroundColor: "black",
+        backgroundColor: "#22669A",
         color: "white",
         "&:hover": {
           backgroundColor: "#333",

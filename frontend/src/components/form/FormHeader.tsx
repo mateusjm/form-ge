@@ -11,7 +11,6 @@ export const FormHeader = ({ imageSrc, title, subtitle }: FormHeaderProps) => {
     <div className={styles.header}>
       <img src={imageSrc} alt={title} className={styles.headerImage} />
       <div className={styles.headerText}>
-        <h1>{title}</h1>
         {subtitle && <div className={styles.subtitle}>{subtitle}</div>} 
       </div>
     </div>

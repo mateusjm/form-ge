@@ -43,8 +43,6 @@ export const AutocompleteInput = ({
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
   const listRef = useRef<HTMLDivElement>(null);
-  const touchStartY = useRef<number | null>(null);
-  const scrollStartTop = useRef<number>(0);
 
   /** 🔁 sincroniza texto com valor válido */
   useEffect(() => {
@@ -141,31 +139,6 @@ export const AutocompleteInput = ({
     }
   }, [highlightedIndex]);
 
-  /** 🖐️ touch scroll prioritário no mobile */
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (!listRef.current) return;
-    touchStartY.current = e.touches[0].clientY;
-    scrollStartTop.current = listRef.current.scrollTop;
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!listRef.current || touchStartY.current === null) return;
-
-    const currentY = e.touches[0].clientY;
-    const deltaY = touchStartY.current - currentY;
-    const scrollEl = listRef.current;
-
-    const atTop = scrollEl.scrollTop === 0 && deltaY < 0;
-    const atBottom =
-      scrollEl.scrollTop + scrollEl.clientHeight >= scrollEl.scrollHeight &&
-      deltaY > 0;
-
-    if (!atTop && !atBottom) {
-      e.stopPropagation(); // evita que a página role
-      scrollEl.scrollTop = scrollStartTop.current + deltaY;
-    }
-  };
-
   return (
     <FormControl fullWidth variant="standard" style={{ position: "relative" }}>
       <InputLabel>{label}</InputLabel>
@@ -221,12 +194,10 @@ export const AutocompleteInput = ({
             maxHeight: 200,
             overflowY: "auto",
             WebkitOverflowScrolling: "touch",
-            overscrollBehavior: "contain",
-            touchAction: "pan-y",
+            overscrollBehavior: "auto", // permite scroll chaining natural
+            touchAction: "pan-y", // permite scroll vertical no mobile
           }}
           ref={listRef}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
         >
           <List dense>
             {filteredOptions.map((option, index) => (

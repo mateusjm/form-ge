@@ -8,9 +8,9 @@ export const RetreatInfo = () => {
           VALOR DO RETIRO:
         </strong>
         <br />
-        1º LOTE: até 31/01/2026 – R$ 300,00
+        1º LOTE: até 28/02/2026 – R$ 320,00
         <br />
-        2º LOTE: 01/02/2026 até 31/05/2026 – R$ 350,00
+        2º LOTE: 01/03/2026 até 31/05/2026 – R$ 350,00
         <br />
         <br />
         <strong style={{ color: "#22669A", fontWeight: "bold" }}>
@@ -20,8 +20,7 @@ export const RetreatInfo = () => {
         PIX, boleto ou cartão
         <br />
         <br />
-        Até 31/01 → até <strong style={{ color: "#22669A", fontWeight: "bold" }}>5x</strong> no cartão
-        <br />
+
         01/02 até 28/02 → até <strong style={{ color: "#22669A", fontWeight: "bold" }}>4x</strong> no cartão
         <br />
         01/03 até 31/03 → até <strong style={{ color: "#22669A", fontWeight: "bold" }}>3x</strong> no cartão

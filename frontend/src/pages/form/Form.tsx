@@ -71,10 +71,10 @@ function Form() {
   }, []);
 
   const getValorPromocional = (data: Date) => {
-    const primeiroLoteFim = new Date("2026-01-31T23:59:59");
+    const primeiroLoteFim = new Date("2026-02-28T23:59:59");
     const segundoLoteFim = new Date("2026-05-31T23:59:59");
 
-    if (data <= primeiroLoteFim) return 300;
+    if (data <= primeiroLoteFim) return 320;
     if (data <= segundoLoteFim) return 350;
     return 350;
   };
